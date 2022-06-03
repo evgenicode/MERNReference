@@ -2,9 +2,11 @@ import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import GoalForm from '../components/GoalForm'
+import GoalItem from '../components/GoalItem'
 import Spinner from '../components/Spinner'
 import { getGoals } from '../features/goals/goalSlice'
 import { reset } from '../features/auth/authSlice' //the wierd bug fix part1 (was imported from goalSlice first)
+
 
 function Dashboard() {
   const navigate = useNavigate()
@@ -46,6 +48,16 @@ function Dashboard() {
       </section>
 
       <GoalForm />
+
+      <section className="content">
+        {goals.length > 0 ? (
+          <div className="goals">
+            {goals.map((goal) => (
+              <GoalItem key={goal._id} goal={goal} />
+            ))}
+          </div>
+        ) : (<h3>No goals set</h3>)}
+      </section>
     </>
   )
 }
